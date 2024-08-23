@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}   
+        
+{% block content %} 
+    <h1>Blog Posts go here</h1>
+    <p>blog posts</p>
+    {% for d in post_data %}
+        <h2>{{d.title}}</h2>
+        <p>{{d.content}} ... <a href="/posts/view?pid={{d.pid}}">Read More</a></p>
+    {% endfor %}
+{% endblock %}
+
