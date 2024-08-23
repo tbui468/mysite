@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash
 
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect("blog.db")
+        g.db = sqlite3.connect("/home/tbui123/blog.db")
     return g.db
 
 def index():
@@ -19,6 +19,7 @@ def blog_posts():
     for r in results:
         data.append({ "pid": r[0], "title": r[1], "content": r[2] })
     return render_template("posts.html", post_data=data)
+
 
 def view():
     pid = request.args.get("pid")
@@ -69,7 +70,8 @@ def login():
 
     return render_template("login.html")
 
-app = Flask(__name__, template_folder=os.getcwd(), static_folder=os.getcwd())
+#app = Flask(__name__, template_folder="/home/tbui123/mysite/templates/", static_folder="/home/tbui123/mysite/static/")
+app = Flask(__name__)
 app.config.from_mapping(SECRET_KEY='dev')
 app.add_url_rule("/", "index", index)
 app.add_url_rule("/posts", "posts", blog_posts)
@@ -77,6 +79,5 @@ app.add_url_rule("/posts/view", "view", view)
 app.add_url_rule("/posts/create", "create", create, methods=['GET', 'POST'])
 app.add_url_rule("/users/login", "login", login, methods=['GET', 'POST'])
 app.add_url_rule("/users/logout", "logout", logout, methods=['POST'])
-
 #app.run()
 

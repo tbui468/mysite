@@ -14,7 +14,7 @@ from werkzeug.security import generate_password_hash
 #adding an edit button for a post
 
 
-db = sqlite3.connect("blog.db")
+db = sqlite3.connect("/home/tbui123/blog.db")
 
 #drop tables
 db.execute("DROP TABLE IF EXISTS posts")
@@ -28,8 +28,8 @@ db.execute(create_users_table)
 
 #insert rows into tables
 insert_user_stmt = "INSERT INTO users (username, password) VALUES (?, ?)"
-db.execute(insert_user_stmt, ("thomas", generate_password_hash("password", method='pbkdf2')))
-db.execute(insert_user_stmt, ("kate", generate_password_hash("password", method='pbkdf2')))
+db.execute(insert_user_stmt, ("thomas", generate_password_hash("password")))
+db.execute(insert_user_stmt, ("kate", generate_password_hash("password")))
 
 author_id = db.execute("SELECT rowid FROM users WHERE username=?", ('thomas',)).fetchone()[0]
 insert_stmt = "INSERT INTO posts (author_id, title, content) VALUES (?, ?, ?)"
